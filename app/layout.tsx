@@ -20,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className={`${rubikText.className} h-screen`}>{children}</body>
+      <body
+        className={`${rubikText.className} bg-gradient-to-b from-primary to-secondary h-dvh flex justify-between`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="bg-gradient-to-b from-primary to-secondary h-svh w-full py-10 flex flex-col justify-center items-center">
+      <main className="w-full py-10 flex flex-col justify-center items-center">
         <div className="">
           <CardWithForm pergolaTypes={types} />
         </div>
