@@ -25,7 +25,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectGroup,
 } from "@/components/ui/select";
 import {
   Form,
@@ -226,22 +225,20 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent
-                    // ref={(ref) => {
-                    //   if (!ref) return;
-                    //   ref.ontouchstart = (e) => {
-                    //     e.preventDefault();
-                    //   };
-                    // }}
+                      ref={(ref) => {
+                        if (!ref) return;
+                        ref.ontouchstart = (e) => {
+                          e.preventDefault();
+                        };
+                      }}
                     >
-                      <SelectGroup className="overflow-y-auto">
-                        {pergolaTypes.map((type) => {
-                          return (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
+                      {pergolaTypes.map((type) => {
+                        return (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
 
