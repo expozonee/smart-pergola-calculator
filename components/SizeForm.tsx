@@ -233,7 +233,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     //   };
                     // }}
                     >
-                      <SelectGroup className="overflow-y-auto max-h-60">
+                      <SelectGroup className="overflow-y-auto">
                         {pergolaTypes.map((type) => {
                           return (
                             <SelectItem key={type} value={type}>
