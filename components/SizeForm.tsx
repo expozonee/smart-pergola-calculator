@@ -25,6 +25,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
 } from "@/components/ui/select";
 import {
   Form,
@@ -232,13 +233,15 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     //   };
                     // }}
                     >
-                      {pergolaTypes.map((type) => {
-                        return (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        );
-                      })}
+                      <SelectGroup>
+                        {pergolaTypes.map((type) => {
+                          return (
+                            <SelectItem key={type} value={type}>
+                              {type}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
 
