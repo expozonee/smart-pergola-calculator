@@ -226,15 +226,14 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent
-                      // ref={(ref) => {
-                      //   if (!ref) return;
-                      //   ref.ontouchstart = (e) => {
-                      //     e.preventDefault();
-                      //   };
-                      // }}
-                      className="overflow-y-auto max-h-60"
+                    // ref={(ref) => {
+                    //   if (!ref) return;
+                    //   ref.ontouchstart = (e) => {
+                    //     e.preventDefault();
+                    //   };
+                    // }}
                     >
-                      <SelectGroup>
+                      <SelectGroup className="overflow-y-auto max-h-60">
                         {pergolaTypes.map((type) => {
                           return (
                             <SelectItem key={type} value={type}>
