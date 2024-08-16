@@ -225,12 +225,12 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent
-                      ref={(ref) => {
-                        if (!ref) return;
-                        ref.ontouchstart = (e) => {
-                          e.stopPropagation();
-                        };
-                      }}
+                    // ref={(ref) => {
+                    //   if (!ref) return;
+                    //   ref.ontouchstart = (e) => {
+                    //     e.preventDefault();
+                    //   };
+                    // }}
                     >
                       {pergolaTypes.map((type) => {
                         return (
