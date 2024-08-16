@@ -224,7 +224,14 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                         <SelectValue placeholder="בחר סוג" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent
+                      ref={(ref) => {
+                        if (!ref) return;
+                        ref.ontouchstart = (e) => {
+                          e.preventDefault();
+                        };
+                      }}
+                    >
                       {pergolaTypes.map((type) => {
                         return (
                           <SelectItem key={type} value={type}>
