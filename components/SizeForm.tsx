@@ -230,15 +230,19 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                         // ref.ontouchstart = (e) => {
                         //   e.stopPropagation();
                         // };
-                        ref.onclick = (e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                        };
+                        // ref.onclick = (e) => {
+                        //   e.stopPropagation();
+                        //   e.preventDefault();
+                        // };
                       }}
                     >
                       {pergolaTypes.map((type) => {
                         return (
-                          <SelectItem key={type} value={type}>
+                          <SelectItem
+                            key={type}
+                            value={type}
+                            onClick={(e) => e.preventDefault()}
+                          >
                             {type}
                           </SelectItem>
                         );
