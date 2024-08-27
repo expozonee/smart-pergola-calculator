@@ -234,7 +234,11 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     >
                       {pergolaTypes.map((type) => {
                         return (
-                          <SelectItem key={type} value={type}>
+                          <SelectItem
+                            key={type}
+                            value={type}
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             {type}
                           </SelectItem>
                         );
