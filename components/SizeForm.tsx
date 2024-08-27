@@ -228,7 +228,8 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                       ref={(ref) => {
                         if (!ref) return;
                         ref.ontouchstart = (e) => {
-                          // e.stopPropagation();
+                          e.stopPropagation();
+                          e.preventDefault();
                         };
                       }}
                     >
