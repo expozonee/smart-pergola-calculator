@@ -2,12 +2,8 @@
 import * as React from "react";
 import { z } from "zod";
 import { getPrice } from "@/utils/getPrice";
-import { useFormState } from "react-dom";
-import TextField from "@mui/material/TextField";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Rubik } from "next/font/google";
-import { Span } from "next/dist/trace";
 import {
   Card,
   CardContent,
@@ -37,8 +33,6 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-const rubikText = Rubik({ weight: ["500"], subsets: ["hebrew"] });
 
 const formSchema = z.object({
   type: z.string().min(1, { message: "בחר סוג פרגולה" }),
@@ -113,55 +107,6 @@ const theme = createTheme({
     },
   },
 });
-
-// export function SizeForm() {
-//   const [result, formAction] = useFormState(getPrice, { price: undefined });
-
-//   return (
-//     <div className="w-full">
-//       <div className="w-5/6 max-w-[400px] mx-auto">
-//         <form action={formAction}>
-//           <div className="flex flex-col text-white gap-3">
-//             <ThemeProvider theme={theme}>
-//               <TextField
-//                 name="width"
-//                 id="רוחב"
-//                 label="רוחב"
-//                 dir="rtl"
-//                 autoFocus
-//               />
-
-//               <TextField name="height" id="גובה" label="גובה" />
-//             </ThemeProvider>
-//             <Button
-//               type="submit"
-//               color="warning"
-//               variant="contained"
-//               className={`text-white ${rubikText.className}`}
-//             >
-//               חישוב מחיר
-//             </Button>
-//           </div>
-//         </form>
-//         {result.error && (
-//           <p className="my-3 text-red-500 text-center">
-//             {result.error.message}
-//           </p>
-//         )}
-//       </div>
-//       <div>
-//         <p className="text-white text-xl text-center p-3">
-//           מחיר:
-//           {result.price ? (
-//             <span className="text-green-450">{result.price}</span>
-//           ) : (
-//             <span className="text-gray-500"> הקלד גובה ו אורך</span>
-//           )}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
 
 export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
   const [price, setPrice] = React.useState<string | undefined>(undefined);
