@@ -227,22 +227,14 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     <SelectContent
                       ref={(ref) => {
                         if (!ref) return;
-                        // ref.ontouchstart = (e) => {
-                        //   e.stopPropagation();
-                        // };
-                        // ref.onclick = (e) => {
-                        //   e.stopPropagation();
-                        //   e.preventDefault();
-                        // };
+                        ref.ontouchstart = (e) => {
+                          e.stopImmediatePropagation();
+                        };
                       }}
                     >
                       {pergolaTypes.map((type) => {
                         return (
-                          <SelectItem
-                            key={type}
-                            value={type}
-                            onClick={(e) => e.preventDefault()}
-                          >
+                          <SelectItem key={type} value={type}>
                             {type}
                           </SelectItem>
                         );
