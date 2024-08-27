@@ -220,7 +220,10 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={(e) => e.stopPropagation()}
+                      >
                         <SelectValue placeholder="בחר סוג" />
                       </SelectTrigger>
                     </FormControl>
