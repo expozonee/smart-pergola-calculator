@@ -220,10 +220,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger
-                        onClick={(e) => e.stopPropagation()}
-                        onTouchStart={(e) => e.stopPropagation()}
-                      >
+                      <SelectTrigger>
                         <SelectValue placeholder="בחר סוג" />
                       </SelectTrigger>
                     </FormControl>
@@ -237,7 +234,12 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     >
                       {pergolaTypes.map((type) => {
                         return (
-                          <SelectItem key={type} value={type}>
+                          <SelectItem
+                            key={type}
+                            value={type}
+                            onClick={(e) => e.stopPropagation()}
+                            onTouchStart={(e) => e.stopPropagation()}
+                          >
                             {type}
                           </SelectItem>
                         );
