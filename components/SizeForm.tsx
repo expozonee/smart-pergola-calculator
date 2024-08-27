@@ -227,9 +227,9 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                     <SelectContent
                       ref={(ref) => {
                         if (!ref) return;
-                        ref.ontouchstart = (e) => {
-                          e.stopPropagation();
-                        };
+                        // ref.ontouchstart = (e) => {
+                        //   e.stopPropagation();
+                        // };
                         ref.onclick = (e) => {
                           e.stopPropagation();
                           e.preventDefault();
