@@ -72,8 +72,9 @@ export async function getPrice({
 
         if (!isNumeric(discount)) {
           return {
+            price,
             error: {
-              message: "ההנחה חייבת להיות מספר",
+              message: "אחוז ההנחה חייב להיות מספרים בלבד",
             },
           };
         }
