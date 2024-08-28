@@ -37,7 +37,7 @@ import { Loader } from "./loader/loader";
 
 const formSchema = z.object({
   type: z.string().min(1, { message: "בחר סוג פרגולה" }),
-  width: z.number().min(1, { message: "רוחב חובה" }),
+  width: z.string().min(1, { message: "רוחב חובה" }),
   height: z.string().min(1, { message: "גובה חובה" }),
   discount: z.string().optional(),
 });
@@ -123,7 +123,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: "",
-      width: undefined,
+      width: "",
       height: "",
       discount: "",
     },
@@ -137,7 +137,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
     setIsLoading(true);
 
     const priceData = await getPrice({
-      width: "100",
+      width: values.width,
       height: values.height,
       type: values.type,
       discount: values.discount,
