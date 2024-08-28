@@ -4,6 +4,7 @@ import isNumeric from "validator/lib/isNumeric";
 
 type PriceData = {
   price?: string | undefined;
+  discountedPrice?: string | undefined;
   error?: {
     message: string;
   };
@@ -13,12 +14,14 @@ type GetPriceProps = {
   width: string;
   height: string;
   type: string;
+  discount?: string;
 };
 
 export async function getPrice({
   width,
   height,
   type,
+  discount,
 }: GetPriceProps): Promise<PriceData> {
   const isWidthNumbersOnly = isNumeric(width);
   const isHeightNumbersOnly = isNumeric(height);
@@ -46,15 +49,50 @@ export async function getPrice({
       const closestHeight = closest(heights, heightNumber);
 
       if (findWidth) {
+        const unformattedPrice = findWidth[String(closestHeight)];
+
+        if (unformattedPrice === 0) {
+          return {
+            error: {
+              message: "אין מחיר במידות אלו",
+            },
+          };
+        }
+
         const price = new Intl.NumberFormat(undefined, {
           style: "currency",
           currency: "ILS",
-        }).format(findWidth[String(closestHeight)]);
+        }).format(unformattedPrice);
+
+        if (!discount) {
+          return {
+            price,
+          };
+        }
+
+        if (!isNumeric(discount)) {
+          return {
+            error: {
+              message: "ההנחה חייבת להיות מספר",
+            },
+          };
+        }
+
+        const discountPercent = Number(discount);
+        const priceAfterDiscount =
+          unformattedPrice - unformattedPrice * (discountPercent / 100);
+
+        const discountedPrice = new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: "ILS",
+        }).format(priceAfterDiscount);
 
         return {
           price,
+          discountedPrice,
         };
       }
+
       return {
         error: {
           message: "מידע חייב להיות מספרים בלבד",

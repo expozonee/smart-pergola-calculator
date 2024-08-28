@@ -38,6 +38,7 @@ const formSchema = z.object({
   type: z.string().min(1, { message: "בחר סוג פרגולה" }),
   width: z.string().min(1, { message: "רוחב חובה" }),
   height: z.string().min(1, { message: "גובה חובה" }),
+  discount: z.string().optional(),
 });
 
 type CardWithFormProps = {
@@ -111,6 +112,9 @@ const theme = createTheme({
 export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
   const [price, setPrice] = React.useState<string | undefined>(undefined);
   const [error, setError] = React.useState<string | undefined>(undefined);
+  const [discountedPrice, setDiscountedPrice] = React.useState<
+    string | undefined
+  >(undefined);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -119,6 +123,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
       type: "",
       width: "",
       height: "",
+      discount: "",
     },
   });
 
@@ -131,15 +136,43 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
       width: values.width,
       height: values.height,
       type: values.type,
+      discount: values.discount,
     });
 
-    if (priceData.price) {
-      setPrice(priceData.price);
-      setError(undefined);
-    } else {
+    if (!priceData.price) {
       setError(priceData.error?.message);
       setPrice(undefined);
+      setDiscountedPrice(undefined);
+      return;
     }
+
+    if (!priceData.error) {
+      setPrice(priceData.price);
+      setDiscountedPrice(priceData.discountedPrice);
+      setError(undefined);
+      return;
+    }
+
+    if (!priceData.discountedPrice && !priceData.error) {
+      setPrice(priceData.price);
+      setError(undefined);
+      return;
+    }
+
+    if (!priceData.discountedPrice && priceData.error) {
+      setPrice(priceData.price);
+      setDiscountedPrice(undefined);
+      setError(priceData.error.message);
+      return;
+    }
+
+    // if (priceData.price) {
+    //   setPrice(priceData.price);
+    //   setError(undefined);
+    // } else {
+    //   setError(priceData.error?.message);
+    //   setPrice(undefined);
+    // }
   }
 
   return (
@@ -219,6 +252,20 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="discount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>אחוז הנחה</FormLabel>
+                  <FormControl>
+                    <Input placeholder="אחוז הנחה" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button
               className="w-full bg-secondary hover:bg-primary"
               type="submit"
@@ -231,7 +278,10 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
         {price && (
           <p className="mt-4 text-center text-green-700">{`מחיר: ${price}`}</p>
         )}
-        {error && <p className="mt-4 text-center text-red-700">{error}</p>}
+        {discountedPrice && (
+          <p className="text-center text-orange-700">{`מחיר עם הנחה: ${discountedPrice}`}</p>
+        )}
+        {error && <p className=" text-center text-red-700">{error}</p>}
 
         {/*  */}
       </CardContent>
