@@ -281,7 +281,11 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
         {discountedPrice && (
           <p className="text-center text-orange-700">{`מחיר עם הנחה: ${discountedPrice}`}</p>
         )}
-        {error && <p className=" text-center text-red-700">{error}</p>}
+        {error && (
+          <p className={`${!price && "mt-3"} text-center text-red-700`}>
+            {error}
+          </p>
+        )}
 
         {/*  */}
       </CardContent>
