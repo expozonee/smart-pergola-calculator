@@ -10,15 +10,21 @@ export default function Home() {
 
   return (
     <>
-      <main className="w-full py-10 flex flex-col justify-center items-center">
+      <main className="w-full py-10 flex flex-col justify-evenly items-center">
         <section className="">
           <CardWithForm pergolaTypes={types} />
         </section>
+        <section className="text-white grid gap-3">
+          <Image
+            className="mx-auto"
+            src={logo}
+            alt="logo"
+            priority
+            width={100}
+          />
+          <p>כל הזכיות שמורות סמארט פרגולה {currentYear} &copy;</p>
+        </section>
       </main>
-      <section className="mt-16 bottom-8 text-white grid gap-3 fixed inset-x-1/2 min-w-[300px] translate-x-2/4">
-        <Image className="mx-auto" src={logo} alt="logo" priority width={100} />
-        <p>כל הזכיות שמורות סמארט פרגולה {currentYear} &copy;</p>
-      </section>
     </>
   );
 }
