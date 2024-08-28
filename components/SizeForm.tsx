@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { z } from "zod";
+import { set, z } from "zod";
 import { getPrice } from "@/utils/getPrice";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Rubik } from "next/font/google";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Loader } from "./loader/loader";
 
 const formSchema = z.object({
   type: z.string().min(1, { message: "בחר סוג פרגולה" }),
@@ -112,6 +113,7 @@ const theme = createTheme({
 export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
   const [price, setPrice] = React.useState<string | undefined>(undefined);
   const [error, setError] = React.useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [discountedPrice, setDiscountedPrice] = React.useState<
     string | undefined
   >(undefined);
@@ -132,12 +134,16 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
+    setIsLoading(true);
+
     const priceData = await getPrice({
       width: values.width,
       height: values.height,
       type: values.type,
       discount: values.discount,
     });
+
+    setIsLoading(false);
 
     if (!priceData.price) {
       setError(priceData.error?.message);
@@ -267,10 +273,10 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
               )}
             />
             <Button
-              className="w-full bg-secondary hover:bg-primary"
+              className="relative w-full bg-secondary hover:bg-primary"
               type="submit"
             >
-              חשב
+              {isLoading ? <Loader color="white" /> : "חשב"}
             </Button>
           </form>
         </Form>
