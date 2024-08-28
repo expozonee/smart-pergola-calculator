@@ -237,7 +237,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 <FormItem>
                   <FormLabel>רוחב</FormLabel>
                   <FormControl>
-                    <Input placeholder="רוחב" {...field} />
+                    <Input inputMode="numeric" placeholder="רוחב" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -251,7 +251,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 <FormItem>
                   <FormLabel>אורך (פתיחה)/ גובה</FormLabel>
                   <FormControl>
-                    <Input placeholder="גובה" {...field} />
+                    <Input inputMode="numeric" placeholder="גובה" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -265,7 +265,11 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 <FormItem>
                   <FormLabel>אחוז הנחה</FormLabel>
                   <FormControl>
-                    <Input placeholder="אחוז הנחה" {...field} />
+                    <Input
+                      inputMode="numeric"
+                      placeholder="אחוז הנחה"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
