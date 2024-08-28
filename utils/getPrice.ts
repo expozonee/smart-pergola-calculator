@@ -85,7 +85,7 @@ export async function getPrice({
         const discountedPrice = new Intl.NumberFormat(undefined, {
           style: "currency",
           currency: "ILS",
-        }).format(priceAfterDiscount);
+        }).format(priceAfterDiscount < 0 ? 0 : priceAfterDiscount);
 
         return {
           price,
