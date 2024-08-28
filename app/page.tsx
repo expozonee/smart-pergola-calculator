@@ -14,7 +14,7 @@ export default function Home() {
         <section className="">
           <CardWithForm pergolaTypes={types} />
         </section>
-        <section className="text-white grid gap-3">
+        <section className="mt-4 text-white grid gap-1">
           <Image
             className="mx-auto"
             src={logo}
