@@ -237,7 +237,12 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 <FormItem>
                   <FormLabel>רוחב</FormLabel>
                   <FormControl>
-                    <Input inputMode="numeric" placeholder="רוחב" {...field} />
+                    <Input
+                      inputMode="numeric"
+                      placeholder="רוחב"
+                      {...field}
+                      onFocus={(e) => e.target.select()}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -251,7 +256,12 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                 <FormItem>
                   <FormLabel>אורך (פתיחה)/ גובה</FormLabel>
                   <FormControl>
-                    <Input inputMode="numeric" placeholder="גובה" {...field} />
+                    <Input
+                      inputMode="numeric"
+                      placeholder="גובה"
+                      {...field}
+                      onFocus={(e) => e.target.select()}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -269,6 +279,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                       inputMode="numeric"
                       placeholder="אחוז הנחה"
                       {...field}
+                      onFocus={(e) => e.target.select()}
                     />
                   </FormControl>
 
@@ -279,6 +290,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
             <Button
               className="relative w-full bg-secondary hover:bg-primary"
               type="submit"
+              disabled={isLoading}
             >
               {isLoading ? <Loader color="white" /> : "חשב"}
             </Button>
