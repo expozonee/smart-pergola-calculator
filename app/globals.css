@@ -76,3 +76,10 @@ body {
 body {
   position: relative;
 }
+
+/* @media (min-width: 640px) { */
+.main-content {
+  justify-content: center;
+  gap: 1.5rem;
+}
+/* } */
