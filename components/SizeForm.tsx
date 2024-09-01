@@ -288,7 +288,7 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
               )}
             />
             <Button
-              className="relative w-full bg-secondary hover:bg-primary"
+              className="relative w-full bg-secondary hover:bg-primary disabled:opacity-75"
               type="submit"
               disabled={isLoading}
             >
