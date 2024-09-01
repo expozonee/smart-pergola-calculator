@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="main-content w-full py-10 flex flex-col justify-evenly items-center">
+      <main className="w-full py-10 flex flex-col justify-evenly items-center">
         <section className="">
           <CardWithForm pergolaTypes={types} />
         </section>
