@@ -1,5 +1,5 @@
 "use server";
-import { readExcelFile, TableData } from "./readExcelFile";
+import { readExcelFile } from "./readExcelFile";
 import isNumeric from "validator/lib/isNumeric";
 
 type PriceData = {
@@ -108,31 +108,6 @@ export async function getPrice({
     },
   };
 }
-
-// function computeWidthAndHeight(
-//   width: number,
-//   height: number,
-//   data: TableData[]
-// ) {
-//   const widths = data.map((dataWidth) => {
-//     return dataWidth.WIDTH;
-//   });
-
-//   const fixedWidth = widths.reduce((prevWidth, currentWidth) => {
-//     const diff = Math.abs(currentWidth - width);
-//     const prevDiff = Math.abs(prevWidth - width);
-
-//     console.log("diff", diff);
-//     console.log("prevDiff", prevDiff);
-
-//     if (diff < prevDiff) {
-//       return currentWidth;
-//     }
-//     return prevWidth;
-//   }, 0);
-
-//   return fixedWidth;
-// }
 
 const closest = (arr: number[], number: number) =>
   arr.reduce((prev, curr) =>

@@ -1,6 +1,5 @@
 import { CardWithForm } from "@/components/SizeForm";
 import Image from "next/image";
-import LogoWhite from "@/public/Smart Pergola logo white.png";
 import logo from "@/public/logo.svg";
 import { getPergolaTypes } from "@/utils/readExcelFile";
 

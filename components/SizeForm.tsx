@@ -1,20 +1,10 @@
 "use client";
 import * as React from "react";
-import { set, z } from "zod";
+import { z } from "zod";
 import { getPrice } from "@/utils/getPrice";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Rubik } from "next/font/google";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -25,7 +15,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -45,70 +34,6 @@ const formSchema = z.object({
 type CardWithFormProps = {
   pergolaTypes: string[];
 };
-
-const theme = createTheme({
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          // color of the text inside the field
-          color: "white",
-          // border color on hover
-          "&:hover:not(.Mui-focused)": {
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "yellow",
-            },
-          },
-          "& label": {
-            left: "unset",
-            right: "1.75rem",
-            transformOrigin: "right",
-            fontSize: "1rem",
-          },
-          "& legend": {
-            textAlign: "right",
-            fontSize: "0.85rem",
-          },
-        },
-      },
-    },
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
-          // color of the label text
-          color: "white",
-          // color of the label text when focused
-          "&.Mui-focused": {
-            color: "white", // Change input label color on focus
-          },
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          color: "white",
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          // color of the border when focused
-          "&.Mui-focused": {
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
-            },
-          },
-        },
-        notchedOutline: {
-          // color of the border normal state
-          borderColor: "gray",
-        },
-      },
-    },
-  },
-});
 
 export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
   const [price, setPrice] = React.useState<string | undefined>(undefined);
@@ -171,25 +96,14 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
       setError(priceData.error.message);
       return;
     }
-
-    // if (priceData.price) {
-    //   setPrice(priceData.price);
-    //   setError(undefined);
-    // } else {
-    //   setError(priceData.error?.message);
-    //   setPrice(undefined);
-    // }
   }
 
   return (
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle className="text-primary text-center">מחשבון מחיר</CardTitle>
-        {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
       </CardHeader>
       <CardContent>
-        {/*  */}
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
