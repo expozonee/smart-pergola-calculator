@@ -34,6 +34,4 @@ A lightweight Next.js application that calculates the price of a pergola based o
 
 ## Future Enhancements
 
-- **Enhanced Validation**: Include additional checks, such as realistic dimension ranges and percentage limits.
-- **Mobile-Friendly Design**: Ensure the app is optimized for smaller screens.
 - **Enhanced Performance**: Cache Excel data for faster lookups.
