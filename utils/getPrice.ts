@@ -4,10 +4,11 @@ import isNumeric from "validator/lib/isNumeric";
 
 type PriceData = {
   price?: string | undefined;
-  discountedPrice?: string | undefined;
+  pricewithDiscount?: string | undefined;
   error?: {
     message: string;
   };
+  maxMinMsg?: string;
 };
 
 type GetPriceProps = {
@@ -31,6 +32,30 @@ export async function getPrice({
     const widthNumber = parseInt(width);
     const heightNumber = parseInt(height);
 
+    let maxMinMsg: string | undefined;
+
+    const maxMin = {
+      width: {
+        max: data.reduce((max, curr) => {
+          if (curr.WIDTH >= max) return curr.WIDTH;
+          return max;
+        }, 0),
+        min: data.reduce((min, curr) => {
+          if (curr.WIDTH >= min.WIDTH) return min;
+          return curr;
+        }).WIDTH,
+      },
+      height: {
+        max: Object.keys(data[0])
+          .filter((key) => key !== "WIDTH")
+          .reduce((max, curr) => {
+            if (+curr >= max) return +curr;
+            return max;
+          }, 0),
+        min: +Object.keys(data[0])[0],
+      },
+    };
+
     const widths = data.map((dataWidth) => {
       return dataWidth.WIDTH;
     });
@@ -47,6 +72,38 @@ export async function getPrice({
         .map((height) => parseInt(height));
 
       const closestHeight = closest(heights, heightNumber);
+
+      if (+width < maxMin.width.min) {
+        maxMinMsg = `${
+          maxMinMsg ?? ""
+        }\nהרוחב שנתנת/ה הוא פחות מהמינימום לסוג הפרגולה הזאת (הרוחב המינימלי הוא: ${
+          maxMin.width.min
+        })`;
+      }
+
+      if (+height < maxMin.height.min) {
+        maxMinMsg = `${
+          maxMinMsg ?? ""
+        }\nהגובה שנתנת/ה הוא פחות מהמינימום לסוג הפרגולה הזאת (הגובה המינימלי הוא: ${
+          maxMin.height.min
+        })`;
+      }
+
+      if (+width > maxMin.width.max) {
+        maxMinMsg = `${
+          maxMinMsg ?? ""
+        }\nהרוחב שנתנת/ה הוא גדול מהמקסימום לסוג הפרגולה הזאת (הרוחב המקסימלי הוא: ${
+          maxMin.width.max
+        })`;
+      }
+
+      if (+height > maxMin.height.max) {
+        maxMinMsg = `${
+          maxMinMsg ?? ""
+        }\nהגובה שנתנת/ה הוא גדול מהמקסימום לסוג הפרגולה הזאת (הגובה המקסימלי הוא: ${
+          maxMin.height.max
+        })`;
+      }
 
       if (findWidth) {
         const unformattedPrice = findWidth[String(closestHeight)];
@@ -67,33 +124,35 @@ export async function getPrice({
         if (!discount) {
           return {
             price,
+            ...(maxMinMsg ? { maxMinMsg } : {}),
           };
         }
 
         if (!isNumeric(discount)) {
           return {
             price,
+            ...(maxMinMsg ? { maxMinMsg } : {}),
             error: {
-              message: "אחוז ההנחה חייב להיות מספרים בלבד",
+              message: "אחוז הנחה חייב להיות מספרים בלבד",
             },
           };
         }
 
-        const discountPercent = Number(discount);
-        const priceAfterDiscount =
-          unformattedPrice - unformattedPrice * (discountPercent / 100);
+        const discountPercent: number = Number(discount);
+        const discountedPrice =
+          (unformattedPrice * (100 - discountPercent)) / 100;
 
-        const discountedPrice = new Intl.NumberFormat(undefined, {
+        const pricewithDiscount = new Intl.NumberFormat(undefined, {
           style: "currency",
           currency: "ILS",
-        }).format(priceAfterDiscount < 0 ? 0 : priceAfterDiscount);
+        }).format(discountedPrice);
 
         return {
           price,
-          discountedPrice,
+          pricewithDiscount,
+          ...(maxMinMsg ? { maxMinMsg } : {}),
         };
       }
-
       return {
         error: {
           message: "מידע חייב להיות מספרים בלבד",
