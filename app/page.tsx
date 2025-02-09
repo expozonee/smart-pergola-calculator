@@ -13,15 +13,19 @@ export default function Home() {
         <section className="">
           <CardWithForm pergolaTypes={types} />
         </section>
-        <section className="mt-4 text-white grid gap-1">
-          <Image
-            className="mx-auto"
-            src={logo}
-            alt="logo"
-            priority
-            width={100}
-          />
-          <p>כל הזכיות שמורות סמארט פרגולה {currentYear} &copy;</p>
+        <section className="w-[350px] text-center mt-4 text-white flex lg:grid gap-1">
+          <div className="flex-grow">
+            <Image
+              className="mx-auto"
+              src={logo}
+              alt="logo"
+              priority
+              width={100}
+            />
+          </div>
+          <p className="flex-grow-[5]">
+            כל הזכיות שמורות סמארט פרגולה {currentYear} &copy;
+          </p>
         </section>
       </main>
     </>
