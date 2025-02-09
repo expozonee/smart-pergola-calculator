@@ -123,7 +123,10 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
         {/*  */}
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 lg:space-y-8"
+          >
             <FormField
               control={form.control}
               name="type"
@@ -140,7 +143,14 @@ export function CardWithForm({ pergolaTypes }: CardWithFormProps) {
                         <SelectValue placeholder="בחר סוג" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent
+                      ref={(ref) => {
+                        if (!ref) return;
+                        ref.ontouchend = (e) => {
+                          e.preventDefault();
+                        };
+                      }}
+                    >
                       {pergolaTypes.map((type) => {
                         return (
                           <SelectItem key={type} value={type}>
